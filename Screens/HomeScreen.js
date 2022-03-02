@@ -11,14 +11,14 @@ const LOCATIONS = [
     description: 'Lake Louise is rich heritage as one of the world\'s most awe-inspiring mountain destinations.',
     screenName: 'LakeLouiseScreen'
   },
-  { 
+  {
     id: 2,
     image: Images.sanFrancisco,
     title: 'San Francisco',
     description: 'Grab your coat and a handful of glitter and enter the land of fog and fabulousness.',
     screenName: 'SanFranciscoScreen'
   },
-  { 
+  {
     id: 3,
     image: Images.alesund,
     title: 'Ålesund',
@@ -50,7 +50,7 @@ export default function HomeScreen() {
       </Pressable>
     );
   }
-  
+
 
   return (
     <SafeAreaView style={styles.container}>

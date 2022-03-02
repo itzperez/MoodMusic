@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import HomeStack from './Screens/HomeStack';
+import CheckinStack from './Screens/Checkin/CheckinStack.js';
 
 function Community() {
   return (
@@ -78,14 +79,14 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
         <Tab.Screen name="Community" component={Community} />
-        <Tab.Screen name="Checkin" component={CheckinScreen} />
+        <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
         <Tab.Screen name="Messages" component={Messages} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
+          // tabBarShowLabel: false,
 
 
 const styles = StyleSheet.create({
@@ -96,14 +97,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-
-
-
-// "tabBarShowLabel": false,
-// "tabBarStyle": [
-//   {
-//     "display": "flex"
-//   },
-//   null
-// ]
