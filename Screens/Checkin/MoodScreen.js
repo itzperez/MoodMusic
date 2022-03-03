@@ -2,41 +2,82 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, ImageBackground,
 import Images from '../../assets/Images';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
+import { useFonts } from 'expo-font';
 
+
+import Happy from '../../assets/Images/Feelings/happy.svg';
 import Excited from '../../assets/Images/Feelings/excited.svg';
-import Angry from '../../assets/Images/Feelings/angry.svg';
-import Surprise from '../../assets/Images/Feelings/surprise.svg';
+import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
-import Scared from '../../assets/Images/Feelings/scared.svg';
+import Angry from '../../assets/Images/Feelings/angry.svg';
+import Anxious from '../../assets/Images/Feelings/anxious.svg';
 
-const dummy = [
+const emotions = [
   {
     id: 1,
     feeling: 'HAPPY',
-    emoji: Excited,
+    emoji: <Happy/>,
   },
   {
     id: 2,
     feeling: 'SAD',
-    emoji: Sad,
+    emoji: <Sad/>,
   },
   {
     id: 3,
-    feeling: 'MAD',
-    emoji: Angry,
+    feeling: 'CREATIVE',
+    emoji: <Image source={Images.creative} style={{height: 43, width: 43, tintColor: 'white'}} />,
 
   },
   {
     id: 4,
-    feeling: 'SURPRISED',
-    emoji: Surprise,
+    feeling: 'ANXIOUS',
+    emoji: <Anxious/>,
   },
+  {
+    id: 5,
+    feeling: 'EXCITED',
+    emoji: <Excited/>,
+  },
+  {
+    id: 6,
+    feeling: 'ANGRY',
+    emoji: <Angry/>,
+  },
+  {
+    id: 7,
+    feeling: 'CRUSHING',
+    emoji: <Image source={Images.crushing} style={{height: 43, width: 43, tintColor: 'white'}} />,
+
+  },
+  {
+    id: 8,
+    feeling: 'LONELY',
+    emoji: <Lonely/>,
+  },
+  {
+    id: 9,
+    feeling: 'HOPEFUL',
+    emoji: <Image source={Images.hopeful} style={{height: 43, width: 43, tintColor: 'white'}} />,
+
+  },
+  {
+    id: 10,
+    feeling: 'SCARED',
+    emoji: <Image source={Images.scared} style={{height: 43, width: 43, tintColor: 'white'}} />,
+  },
+
 ]
 
-// <Image source={Images.sanFrancisco} style={{height: 50, width: 50}} />
 
 
 export default function MoodScreen() {
+    let [fontsLoaded] = useFonts({
+      RubikMedium: require('../../assets/Fonts/Rubik-Medium.ttf'),
+      RubikBold: require('../../assets/Fonts/Rubik-Bold.ttf'),
+      RubikLight: require('../../assets/Fonts/Rubik-Light.ttf'),
+    });
+
     const navigation = useNavigation();
 
     const renderItem = ({item}) => {
@@ -44,15 +85,13 @@ export default function MoodScreen() {
 
             <TouchableOpacity style={styles.buttons} onPress={() => navigation.navigate('SongScreen', {feeling: item.feeling})}>
                 <View style={{flex: .35, height: '100%', justifyContent: 'center', alignItems: 'flex-end'}}>
-                    <Excited width={50} height={50} fill={'#FFFFFF'}/>
+                    {item.emoji}
                 </View>
                 <Text style={{flex: .65, textAlign: 'center', fontSize: 18}}>
                   {item.feeling}
                 </Text>
 
             </TouchableOpacity>
-
-
 
       );
     }
@@ -61,7 +100,8 @@ export default function MoodScreen() {
     <View style={styles.container}>
 
         <ImageBackground resizeMode="cover" style={styles.topImage} source={require('../../assets/Images/mountain-background.jpg')} >
-            <Text> Good day user </Text>
+            <Text style={{fontSize: 38, color: 'white', fontFamily: 'RubikLight'}}> Good day user </Text>
+
         </ImageBackground>
 
         <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
@@ -73,7 +113,7 @@ export default function MoodScreen() {
         <View style={styles.bottomHalf} >
             <FlatList
               numColumns={2}
-              data={dummy}
+              data={emotions}
               renderItem={renderItem}
             />
         </View>
@@ -99,6 +139,8 @@ const styles = StyleSheet.create({
   },
   question: {
       color: '#7044A9',
+      fontFamily: 'RubikBold',
+      fontWeight: 'bold',
       fontSize: 36,
       textAlign: 'center',
       marginBottom: 5,

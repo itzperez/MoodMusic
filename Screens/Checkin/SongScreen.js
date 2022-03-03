@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 
 export default function SongScreen({route}) {
-    console.log('route ->', route.params);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Song screen!</Text>
