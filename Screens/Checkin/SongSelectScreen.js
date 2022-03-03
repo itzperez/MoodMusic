@@ -206,28 +206,22 @@ export default function SongScreen({route}) {
         <View style={styles.suggestedSongsContainer}>
           <Text style={styles.h1}>Suggested Songs</Text>
           <View style={styles.suggestedSongsGridContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
-              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}} 
-                style={styles.songItem}
-                imageStyle={ styles.songItemImage }>
-                  
-                    <View style={styles.songItemContent}>
-                      <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][0]["name"]}</Text>
-                      <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][0]["album"]["artists"][0]["name"]}</Text>
-                    </View>
-                  
-              </ImageBackground>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
-              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}} 
-                style={styles.songItem}
-                imageStyle={ styles.songItemImage }>
-                  <View style={styles.songItemContent}>
-                    <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][1]["name"]}</Text>
-                    <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][1]["album"]["artists"][0]["name"]}</Text>
-                  </View>
-              </ImageBackground>
-            </TouchableOpacity>
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}} 
+              style={styles.songItem}
+              imageStyle={ styles.songItemImage }>
+                <View style={styles.songItemContent}>
+                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][0]["name"]}</Text>
+                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][0]["album"]["artists"][0]["name"]}</Text>
+                </View>
+            </ImageBackground>
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}} 
+              style={styles.songItem}
+              imageStyle={ styles.songItemImage }>
+                <View style={styles.songItemContent}>
+                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][1]["name"]}</Text>
+                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][1]["album"]["artists"][0]["name"]}</Text>
+                </View>
+            </ImageBackground>
           </View>
           <View style={styles.suggestedSongsGridContainer}>
             <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}} 
