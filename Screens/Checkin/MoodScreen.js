@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, ImageBackground,
 import Images from '../../assets/Images';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { useFonts } from 'expo-font';
+// import { useFonts } from 'expo-font';
 
 
 import Happy from '../../assets/Images/Feelings/happy.svg';
@@ -11,6 +11,20 @@ import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
 import Angry from '../../assets/Images/Feelings/angry.svg';
 import Anxious from '../../assets/Images/Feelings/anxious.svg';
+
+import {
+  useFonts,
+  Rubik_300Light,
+  Rubik_300Light_Italic,
+  Rubik_400Regular,
+  Rubik_400Regular_Italic,
+  Rubik_500Medium,
+  Rubik_500Medium_Italic,
+  Rubik_700Bold,
+  Rubik_700Bold_Italic,
+  Rubik_900Black,
+  Rubik_900Black_Italic
+} from '@expo-google-fonts/rubik';
 
 const emotions = [
   {
@@ -73,9 +87,16 @@ const emotions = [
 
 export default function MoodScreen() {
     let [fontsLoaded] = useFonts({
-      RubikMedium: require('../../assets/Fonts/Rubik-Medium.ttf'),
-      RubikBold: require('../../assets/Fonts/Rubik-Bold.ttf'),
-      RubikLight: require('../../assets/Fonts/Rubik-Light.ttf'),
+      Rubik_300Light,
+      Rubik_300Light_Italic,
+      Rubik_400Regular,
+      Rubik_400Regular_Italic,
+      Rubik_500Medium,
+      Rubik_500Medium_Italic,
+      Rubik_700Bold,
+      Rubik_700Bold_Italic,
+      Rubik_900Black,
+      Rubik_900Black_Italic
     });
 
     const navigation = useNavigation();
@@ -87,7 +108,7 @@ export default function MoodScreen() {
                 <View style={{flex: .35, height: '100%', justifyContent: 'center', alignItems: 'flex-end'}}>
                     {item.emoji}
                 </View>
-                <Text style={{flex: .65, textAlign: 'center', fontSize: 18}}>
+                <Text style={{flex: .65, textAlign: 'center', fontSize: 18, fontFamily: 'Rubik_400Regular', color: 'white'}}>
                   {item.feeling}
                 </Text>
 
@@ -100,13 +121,14 @@ export default function MoodScreen() {
     <View style={styles.container}>
 
         <ImageBackground resizeMode="cover" style={styles.topImage} source={require('../../assets/Images/mountain-background.jpg')} >
-            <Text style={{fontSize: 38, color: 'white', fontFamily: 'RubikLight'}}> Good day user </Text>
+            <Text style={{fontSize: 38, color: 'white', fontFamily: 'Rubik_400Regular', marginTop: 15}}> GOOD DAY </Text>
+            <Text style={{fontSize: 38, color: 'white', fontFamily: 'Rubik_700Bold'}}> Sophia </Text>
 
         </ImageBackground>
 
         <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
             <Text style={styles.question}>
-                How are you feeling today?
+                How are we feeling today?
             </Text>
         </View>
 
@@ -139,11 +161,11 @@ const styles = StyleSheet.create({
   },
   question: {
       color: '#7044A9',
-      fontFamily: 'RubikBold',
+      fontFamily: 'Rubik_500Medium',
       fontWeight: 'bold',
       fontSize: 36,
       textAlign: 'center',
-      marginBottom: 5,
+      marginBottom: 20,
   },
   bottomHalf: {
     flex: .5,

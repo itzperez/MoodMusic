@@ -12,12 +12,17 @@ import axios from "axios";
 import qs from "qs";
 import base64 from 'react-native-base64'
 import { CLIENT_ID, CLIENT_SECRET } from "../../utils/constants";
+import Back from '../../assets/Images/Icons/back-svgrepo-com.svg';
+
+import Happy from '../../assets/Images/Feelings/happy.svg';
 import Excited from '../../assets/Images/Feelings/excited.svg';
-import Angry from '../../assets/Images/Feelings/angry.svg';
-import Surprise from '../../assets/Images/Feelings/surprise.svg';
+import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
-import Scared from '../../assets/Images/Feelings/scared.svg';
-import Back from '../../assets/Images/Icons/back-svgrepo-com.svg'
+import Angry from '../../assets/Images/Feelings/angry.svg';
+import Anxious from '../../assets/Images/Feelings/anxious.svg';
+import Images from '../../assets/Images';
+
+
 import {
   useFonts,
   Rubik_300Light,
@@ -187,11 +192,31 @@ export default function SongScreen({route}) {
               route.params.feeling === "SAD" ? <Sad width={60} height={60} fill={'#FFFFFF'}/> : null
             }
             {
-              route.params.feeling === "MAD" ? <Angry width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "ANXIOUS" ? <Anxious width={60} height={60} fill={'#FFFFFF'}/> : null
             }
             {
-              route.params.feeling === "SURPRISED" ? <Surprise width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "EXCITED" ? <Excited width={60} height={60} fill={'#FFFFFF'}/> : null
             }
+
+            {
+              route.params.feeling === "ANGRY" ? <Angry width={60} height={60} fill={'#FFFFFF'}/> : null
+            }
+            {
+              route.params.feeling === "LONELY" ? <Lonely width={60} height={60} fill={'#FFFFFF'}/> : null
+            }
+            {
+              route.params.feeling === "CREATIVE" ? <Image source={Images.creative} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+            {
+              route.params.feeling === "CRUSHING" ? <Image source={Images.crushing} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+            {
+              route.params.feeling === "HOPEFUL" ? <Image source={Images.hopeful} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+            {
+              route.params.feeling === "SCARED" ? <Image source={Images.scared} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+
           </View>
         </ImageBackground>
         <View style={styles.searchContainer}>
