@@ -18,7 +18,7 @@ import Surprise from '../../assets/Images/Feelings/surprise.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
 import Scared from '../../assets/Images/Feelings/scared.svg';
 import Back from '../../assets/Images/Icons/back-svgrepo-com.svg'
-import {
+import { 
   useFonts,
   Rubik_300Light,
   Rubik_300Light_Italic,
@@ -29,7 +29,7 @@ import {
   Rubik_700Bold,
   Rubik_700Bold_Italic,
   Rubik_900Black,
-  Rubik_900Black_Italic
+  Rubik_900Black_Italic 
 } from '@expo-google-fonts/rubik';
 
 const Stack = createStackNavigator();
@@ -46,9 +46,9 @@ export default function SongScreen({route}) {
     Rubik_700Bold,
     Rubik_700Bold_Italic,
     Rubik_900Black,
-    Rubik_900Black_Italic
+    Rubik_900Black_Italic 
   });
-
+  
   // Spotify access token
   const [token, setToken] = useState('');
 
@@ -147,7 +147,7 @@ export default function SongScreen({route}) {
   const search = () => {
     // firebase stuff that uploads the text or whatever your review is
     console.log("TEST: " + text);
-
+    
     //getSuggestedSongs(setSongs, text, token);
     setText("");
     console.log("TOKEN!!!");
@@ -156,10 +156,10 @@ export default function SongScreen({route}) {
     console.log(suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]);
     //console.log("SUGGESTED SONGS: " + suggestedSongs)
   }
+  
+  
 
-
-
-  if (isLoading) {
+  if (isLoading) {    
     return (
       <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
         <Text >Loading...</Text>
@@ -168,14 +168,14 @@ export default function SongScreen({route}) {
   } else {
     return (
       <SafeAreaView style={styles.selectSongContainer}>
-        <ImageBackground source={require('../../assets/Images/mountain-background.jpg')}
-          style={styles.selectSongHeaderImage}
+        <ImageBackground source={require('../../assets/Images/mountain-background.jpg')} 
+          style={styles.selectSongHeaderImage}  
           imageStyle={{ borderRadius: 15 }}>
           <View style={styles.selectSongHeaderText}>
             <TouchableOpacity onPress={() => navigation.navigate('MoodScreen')}>
               <Back width={30} height={30} fill={'#FFFFFF'}/>
             </TouchableOpacity>
-
+            
             <Text style={{ fontFamily: 'Rubik_700Bold', fontSize: 30, color: Colors.white}}>Sophia</Text>
             <Text style={{ fontFamily: 'Rubik_400Regular', fontSize: 20, color: Colors.white}}>IS FEELING {route.params.feeling}</Text>
           </View>
@@ -206,31 +206,25 @@ export default function SongScreen({route}) {
         <View style={styles.suggestedSongsContainer}>
           <Text style={styles.h1}>Suggested Songs</Text>
           <View style={styles.suggestedSongsGridContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
-              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}}
-                style={styles.songItem}
-                imageStyle={ styles.songItemImage }>
-
-                    <View style={styles.songItemContent}>
-                      <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][0]["name"]}</Text>
-                      <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][0]["album"]["artists"][0]["name"]}</Text>
-                    </View>
-
-              </ImageBackground>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
-              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}}
-                style={styles.songItem}
-                imageStyle={ styles.songItemImage }>
-                  <View style={styles.songItemContent}>
-                    <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][1]["name"]}</Text>
-                    <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][1]["album"]["artists"][0]["name"]}</Text>
-                  </View>
-              </ImageBackground>
-            </TouchableOpacity>
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}} 
+              style={styles.songItem}
+              imageStyle={ styles.songItemImage }>
+                <View style={styles.songItemContent}>
+                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][0]["name"]}</Text>
+                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][0]["album"]["artists"][0]["name"]}</Text>
+                </View>
+            </ImageBackground>
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}} 
+              style={styles.songItem}
+              imageStyle={ styles.songItemImage }>
+                <View style={styles.songItemContent}>
+                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][1]["name"]}</Text>
+                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][1]["album"]["artists"][0]["name"]}</Text>
+                </View>
+            </ImageBackground>
           </View>
           <View style={styles.suggestedSongsGridContainer}>
-            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}}
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}} 
               style={styles.songItem}
               imageStyle={ styles.songItemImage }>
                 <View style={styles.songItemContent}>
@@ -238,7 +232,7 @@ export default function SongScreen({route}) {
                   <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][2]["album"]["artists"][0]["name"]}</Text>
                 </View>
             </ImageBackground>
-            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][3]["album"]["images"][0]["url"]}`}}
+            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][3]["album"]["images"][0]["url"]}`}} 
               style={styles.songItem}
               imageStyle={ styles.songItemImage }>
                 <View style={styles.songItemContent}>
@@ -255,7 +249,7 @@ export default function SongScreen({route}) {
     );
   }
 
-
+  
 }
 
 const styles = StyleSheet.create({
@@ -278,7 +272,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   selectSongHeaderImage: {
-    width: '100%',
+    width: '100%', 
     height: '100%',
     flex: 1.7,
     marginTop: -50,
@@ -286,8 +280,8 @@ const styles = StyleSheet.create({
   },
   selectSongHeaderText: {
     flex: 3,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'center', 
+    alignItems: 'flex-start', 
     height: '100%',
     paddingLeft: '7%',
     marginTop: '4%',
@@ -297,8 +291,8 @@ const styles = StyleSheet.create({
   },
   selectSongHeaderEmoji: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    justifyContent: 'center', 
+    alignItems: 'flex-end', 
     height: '100%',
     paddingRight: '7%',
     marginTop: '4%',
