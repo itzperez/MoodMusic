@@ -23,6 +23,7 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
         // tabBarOptions={{ showLabel: false }}
 
@@ -66,78 +67,47 @@ export default function App() {
     );
   }
 
-  let contentDisplayed = null;
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
 
-  if (!isAuthenticated) {
-        contentDisplayed = (
-            <View style={styles.container}>
-                <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                </View>
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-                <View style={{flex: .3, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image style={{height: 100, width: 100}} source={require('./assets/Images/musical-note.png')} />
-                    <Text style={{fontSize: 48, fontFamily: 'Rubik_700Bold'}}>
-                        Mood Music
-                    </Text>
-                    <Text style={{fontSize: 18}}>
-                        Feel, Share, Connect
-                    </Text>
+            if (route.name === 'Home') {
+              iconName = 'home'
+            } else if (route.name === 'Community') {
+              return <Ionicons name="earth" size={size} color={color} />
+            } else if (route.name === 'Checkin') {
+              //return <Ionicons name="musical-notes" size={size} color={color} />
+              return(
+                <TouchableOpacity>
+                  <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
+                </TouchableOpacity>
+              );
+          } else if (route.name === 'Messages') {
+            return <Ionicons name="chatbubble-ellipses" size={size} color={color} />
+            } else if (route.name === 'Profile') {
+              return <Ionicons name="person" size={size} color={color} />
+            }
 
-                </View>
-
-                <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-                    <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
-                        Login
-                    </Text>
-                </ TouchableOpacity>
-
-                <View style={{flex: .4}}>
-                </View>
-
-            </View>
-
-        )
-
-    } else {
-      contentDisplayed = (
-        <NavigationContainer>
-          <Tab.Navigator
-
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-                if (route.name === 'Home') {
-                  iconName = 'safari'
-                } else if (route.name === 'Community') {
-                iconName = 'map-pin'
-                } else if (route.name === 'Checkin') {
-                  iconName = 'map-pin'
-              } else if (route.name === 'Messages') {
-                iconName = 'map-pin'
-                } else if (route.name === 'Profile') {
-                  return <Ionicons name="person" size={size} color={color} />
-                }
-
-                // You can return any component that you like here!
-                return <FontAwesome name={iconName} size={size} color={color} />;
-              },
-              tabBarActiveTintColor: 'black',
-              tabBarInactiveTintColor: 'gray',
-              tabBarShowLabel: false,
-            })}
-          >
-            <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
-            <Tab.Screen name="Community" component={Community} />
-            <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Messages" component={Messages} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      );
-  }
-
-  return contentDisplayed;
+            // You can return any component that you like here!
+            return <FontAwesome name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+          tabBarShowLabel: false,
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
+        <Tab.Screen name="Community" component={Community} />
+        <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
+        <Tab.Screen name="Messages" component={Messages} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
 
 

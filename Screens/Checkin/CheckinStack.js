@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MoodScreen from './MoodScreen.js';
 import SongScreen from './SongScreen.js';
 import SongSelectScreen from './SongSelectScreen.js';
+import ShareSongScreen from './ShareSongScreen.js';
 
 import { TransitionPresets } from '@react-navigation/stack';
 
@@ -22,6 +23,7 @@ export default function CheckinStack() {
           ...TransitionPresets.ModalPresentationIOS,
         }}
       />
+      <Stack.Screen name="ShareSongScreen" component={ShareSongScreen} />
 
     </Stack.Navigator>
   );
