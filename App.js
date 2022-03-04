@@ -23,6 +23,7 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic 
 } from '@expo-google-fonts/rubik';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
         // tabBarOptions={{ showLabel: false }}
 
@@ -75,13 +76,18 @@ export default function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = 'safari'
+              iconName = 'home'
             } else if (route.name === 'Community') {
-            iconName = 'map-pin'
+              return <Ionicons name="earth" size={size} color={color} />
             } else if (route.name === 'Checkin') {
-              iconName = 'map-pin'
+              //return <Ionicons name="musical-notes" size={size} color={color} />
+              return(
+                <TouchableOpacity>
+                  <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
+                </TouchableOpacity>
+              );
           } else if (route.name === 'Messages') {
-            iconName = 'map-pin'
+            return <Ionicons name="chatbubble-ellipses" size={size} color={color} />
             } else if (route.name === 'Profile') {
               return <Ionicons name="person" size={size} color={color} />
             }

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TextInput, Button, TouchableOpacity, Pressable } from 'react-native';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,11 +12,13 @@ import axios from "axios";
 import qs from "qs";
 import base64 from 'react-native-base64'
 import { CLIENT_ID, CLIENT_SECRET } from "../../utils/constants";
+import Images from '../../assets/Images';
+import Happy from '../../assets/Images/Feelings/happy.svg';
 import Excited from '../../assets/Images/Feelings/excited.svg';
-import Angry from '../../assets/Images/Feelings/angry.svg';
-import Surprise from '../../assets/Images/Feelings/surprise.svg';
+import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
-import Scared from '../../assets/Images/Feelings/scared.svg';
+import Angry from '../../assets/Images/Feelings/angry.svg';
+import Anxious from '../../assets/Images/Feelings/anxious.svg';
 import Back from '../../assets/Images/Icons/back-svgrepo-com.svg'
 import {
   useFonts,
@@ -31,6 +33,7 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+import colors from '../../Themes/colors';
 
 const Stack = createStackNavigator();
 
@@ -181,16 +184,34 @@ export default function SongScreen({route}) {
           </View>
           <View style={styles.selectSongHeaderEmoji}>
             {
-              route.params.feeling === "HAPPY" ? <Excited width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "HAPPY" ? <Happy/> : null
             }
             {
-              route.params.feeling === "SAD" ? <Sad width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "SAD" ? <Sad/> : null
             }
             {
-              route.params.feeling === "MAD" ? <Angry width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "CREATIVE" ? <Image source={Images.creative} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
             }
             {
-              route.params.feeling === "SURPRISED" ? <Surprise width={60} height={60} fill={'#FFFFFF'}/> : null
+              route.params.feeling === "ANXIOUS" ? <Anxious/> : null
+            }
+            {
+              route.params.feeling === "EXCITED" ? <Excited/> : null
+            }
+            {
+              route.params.feeling === "ANGRY" ? <Angry/> : null
+            }
+            {
+              route.params.feeling === "CRUSHING" ? <Image source={Images.crushing} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+            {
+              route.params.feeling === "LONELY" ? <Lonely/> : null
+            }
+            {
+              route.params.feeling === "HOPEFUL" ? <Image source={Images.hopeful} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
+            }
+            {
+              route.params.feeling === "SCARED" ? <Image source={Images.scared} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
             }
           </View>
         </ImageBackground>
@@ -206,7 +227,8 @@ export default function SongScreen({route}) {
         <View style={styles.suggestedSongsContainer}>
           <Text style={styles.h1}>Suggested Songs</Text>
           <View style={styles.suggestedSongsGridContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
+            <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling, 
+                suggestedSongs: suggestedSongs, gridNum: 0})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>
@@ -217,8 +239,9 @@ export default function SongScreen({route}) {
                     </View>
 
               </ImageBackground>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen')}>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling, 
+                suggestedSongs: suggestedSongs, gridNum: 1})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>
@@ -227,25 +250,31 @@ export default function SongScreen({route}) {
                     <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][1]["album"]["artists"][0]["name"]}</Text>
                   </View>
               </ImageBackground>
-            </TouchableOpacity>
+            </Pressable>
           </View>
           <View style={styles.suggestedSongsGridContainer}>
-            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}}
-              style={styles.songItem}
-              imageStyle={ styles.songItemImage }>
-                <View style={styles.songItemContent}>
-                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][2]["name"]}</Text>
-                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][2]["album"]["artists"][0]["name"]}</Text>
-                </View>
-            </ImageBackground>
-            <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][3]["album"]["images"][0]["url"]}`}}
-              style={styles.songItem}
-              imageStyle={ styles.songItemImage }>
-                <View style={styles.songItemContent}>
-                  <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][3]["name"]}</Text>
-                  <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][3]["album"]["artists"][0]["name"]}</Text>
-                </View>
-            </ImageBackground>
+            <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling, 
+                suggestedSongs: suggestedSongs, gridNum: 2})}>
+              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}}
+                style={styles.songItem}
+                imageStyle={ styles.songItemImage }>
+                  <View style={styles.songItemContent}>
+                    <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][2]["name"]}</Text>
+                    <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][2]["album"]["artists"][0]["name"]}</Text>
+                  </View>
+              </ImageBackground>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling, 
+                suggestedSongs: suggestedSongs, gridNum: 3})}>
+              <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][3]["album"]["images"][0]["url"]}`}}
+                style={styles.songItem}
+                imageStyle={ styles.songItemImage }>
+                  <View style={styles.songItemContent}>
+                    <Text style={styles.songTitle}>{suggestedSongs["tracks"]["items"][3]["name"]}</Text>
+                    <Text style={styles.songArtist}>{suggestedSongs["tracks"]["items"][3]["album"]["artists"][0]["name"]}</Text>
+                  </View>
+              </ImageBackground>
+            </Pressable>
           </View>
         </View>
         <View style={styles.currentSongBar}>
@@ -261,7 +290,7 @@ export default function SongScreen({route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -345,7 +374,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     aspectRatio: 1,
-    margin: '2%',
+    margin: '5%',
   },
   songItemImage: {
     aspectRatio: 1,
@@ -356,7 +385,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0, 0.60)',
     borderRadius: 20,
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    padding: 10,
   },
   songTitle: {
     fontFamily: 'Rubik_400Regular',
