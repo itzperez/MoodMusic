@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TextInput, Button, TouchableOpacity} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,7 +10,7 @@ import AppLoading from 'expo-app-loading';
 import HomeStack from './Screens/HomeStack';
 import CheckinStack from './Screens/Checkin/CheckinStack.js';
 import Colors from "./Themes/colors";
-import { 
+import {
   useFonts,
   Rubik_300Light,
   Rubik_300Light_Italic,
@@ -21,7 +21,7 @@ import {
   Rubik_700Bold,
   Rubik_700Bold_Italic,
   Rubik_900Black,
-  Rubik_900Black_Italic 
+  Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
 
         // tabBarOptions={{ showLabel: false }}
@@ -38,7 +38,7 @@ export default function App() {
       </View>
     );
   }
-  
+
   // function CheckinScreen() {
   //   return (
   //     // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -49,7 +49,7 @@ export default function App() {
   //     </Stack.Navigator>
   //   );
   // }
-  
+
   function Messages() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -57,7 +57,7 @@ export default function App() {
       </View>
     );
   }
-  
+
   function ProfileScreen() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -66,50 +66,85 @@ export default function App() {
     );
   }
 
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
+  let contentDisplayed = null;
 
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+  if (!isAuthenticated) {
+        contentDisplayed = (
+            <View style={styles.container}>
+                <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
+                </View>
 
-            if (route.name === 'Home') {
-              iconName = 'safari'
-            } else if (route.name === 'Community') {
-            iconName = 'map-pin'
-            } else if (route.name === 'Checkin') {
-              iconName = 'map-pin'
-          } else if (route.name === 'Messages') {
-            iconName = 'map-pin'
-            } else if (route.name === 'Profile') {
-              return <Ionicons name="person" size={size} color={color} />
-            }
+                <View style={{flex: .3, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                    <Image style={{height: 100, width: 100}} source={require('./assets/Images/musical-note.png')} />
+                    <Text style={{fontSize: 48, fontFamily: 'Rubik_700Bold'}}>
+                        Mood Music
+                    </Text>
+                    <Text style={{fontSize: 18}}>
+                        Feel, Share, Connect
+                    </Text>
 
-            // You can return any component that you like here!
-            return <FontAwesome name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
-          tabBarShowLabel: false,
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
-        <Tab.Screen name="Community" component={Community} />
-        <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+                </View>
+
+                <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+                    <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
+                        Login
+                    </Text>
+                </ TouchableOpacity>
+
+                <View style={{flex: .4}}>
+                </View>
+
+            </View>
+
+        )
+
+    } else {
+      contentDisplayed = (
+        <NavigationContainer>
+          <Tab.Navigator
+
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === 'Home') {
+                  iconName = 'safari'
+                } else if (route.name === 'Community') {
+                iconName = 'map-pin'
+                } else if (route.name === 'Checkin') {
+                  iconName = 'map-pin'
+              } else if (route.name === 'Messages') {
+                iconName = 'map-pin'
+                } else if (route.name === 'Profile') {
+                  return <Ionicons name="person" size={size} color={color} />
+                }
+
+                // You can return any component that you like here!
+                return <FontAwesome name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: 'black',
+              tabBarInactiveTintColor: 'gray',
+              tabBarShowLabel: false,
+            })}
+          >
+            <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
+            <Tab.Screen name="Community" component={Community} />
+            <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
+            <Tab.Screen name="Messages" component={Messages} />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      );
+  }
+
+  return contentDisplayed;
 }
-          // tabBarShowLabel: false,
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.blue,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -125,7 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   selectSongHeaderImage: {
-    width: '100%', 
+    width: '100%',
     height: '100%',
     flex: 1.2,
     marginTop: -50,
@@ -133,8 +168,8 @@ const styles = StyleSheet.create({
   },
   selectSongHeaderText: {
     flex: 3,
-    justifyContent: 'center', 
-    alignItems: 'flex-start', 
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     height: '100%',
     paddingLeft: '7%',
     marginTop: '4%',
@@ -144,8 +179,8 @@ const styles = StyleSheet.create({
   },
   selectSongHeaderEmoji: {
     flex: 1,
-    justifyContent: 'center', 
-    alignItems: 'flex-end', 
+    justifyContent: 'center',
+    alignItems: 'flex-end',
     height: '100%',
     paddingRight: '7%',
     marginTop: '4%',
@@ -159,7 +194,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 8,
-    
+
   },
   paragraph: {
     fontSize: 18,
@@ -180,14 +215,3 @@ const styles = StyleSheet.create({
     height: '100%',
   }
 });
-
-
-
-
-// "tabBarShowLabel": false,
-// "tabBarStyle": [
-//   {
-//     "display": "flex"
-//   },
-//   null
-// ]
