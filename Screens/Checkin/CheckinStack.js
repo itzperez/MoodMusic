@@ -17,7 +17,7 @@ export default function CheckinStack() {
       })}>
       <Stack.Screen name="MoodScreen" component={MoodScreen} />
       <Stack.Screen name="SongScreen" component={SongScreen} />
-      <Stack.Screen name="SongSelectScreen" component={SongSelectScreen} 
+      <Stack.Screen name="SongSelectScreen" component={SongSelectScreen}
         options={{
           title: 'Profile',
           ...TransitionPresets.ModalPresentationIOS,
@@ -28,13 +28,3 @@ export default function CheckinStack() {
     </Stack.Navigator>
   );
 }
-
-
-// <Stack.Screen name="AlesundScreen" component={LocationInformation}
-//   options={{
-//     title: 'Profile',
-//     ...TransitionPresets.ModalPresentationIOS,
-//   }}
-// />
-// <Stack.Screen name="SanFranciscoScreen" component={LocationInformation} />
-// <Stack.Screen name="LakeLouiseScreen" component={LocationInformation} />

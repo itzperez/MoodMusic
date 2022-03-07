@@ -8,6 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { getAccessToken, getSuggestedSongs } from './utils/apiCalls';
 import AppLoading from 'expo-app-loading';
 import HomeStack from './Screens/HomeStack';
+import OnboardingStack from './Screens/Onboarding/OnboardingStack.js'
+
 import CheckinStack from './Screens/Checkin/CheckinStack.js';
 import Colors from "./Themes/colors";
 import {
@@ -23,6 +25,10 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+
+import { db } from './firebase.js';
+import { doc, getDoc, collection} from 'firebase/firestore';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -54,37 +60,34 @@ export default function App() {
     );
   }
 
+  const getUser = async () => {
+
+      const docRef = doc(db, "users", "user1");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+
+      console.log('after getDoc');
+
+      };
+
+
+
+  useEffect(() => {
+    console.log('inside useEffect');
+    getUser();
+
+  }, []);
+
 
   let contentDisplayed = null;
 
   if (!isAuthenticated) {
         contentDisplayed = (
-            <View style={styles.container}>
-                <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                </View>
-
-                <View style={{flex: .3, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image style={{height: 100, width: 100}} source={require('./assets/Images/musical-note.png')} />
-                    <Text style={{fontSize: 48, fontFamily: 'Rubik_700Bold'}}>
-                        Mood Music
-                    </Text>
-                    <Text style={{fontSize: 18}}>
-                        Feel, Share, Connect
-                    </Text>
-
-                </View>
-
-                <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-                    <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
-                        Login
-                    </Text>
-                </ TouchableOpacity>
-
-                <View style={{flex: .4}}>
-                </View>
-
-            </View>
-
+            < OnboardingStack/>
         )
 
     } else {
@@ -130,11 +133,15 @@ export default function App() {
       );
   }
 
-  console.log('rendering first time');
-
   return contentDisplayed;
 }
 
+
+// <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+//     <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
+//         Login
+//     </Text>
+// </ TouchableOpacity>
 
 const styles = StyleSheet.create({
   container: {
@@ -208,5 +215,16 @@ const styles = StyleSheet.create({
   suggestedSongsContainer: {
     flex: 4,
     height: '100%',
-  }
+},
+    fields: {
+      width: 350,
+      height: 55,
+      backgroundColor: '#42A5F5',
+      margin: 10,
+      padding: 8,
+      color: 'white',
+      borderRadius: 14,
+      fontSize: 18,
+      fontWeight: '500',
+},
 });
