@@ -30,6 +30,7 @@ import { db } from './firebase.js';
 import { doc, getDoc, collection} from 'firebase/firestore';
 
 
+        // tabBarOptions={{ showLabel: false }}
 
 const Tab = createBottomTabNavigator();
 
