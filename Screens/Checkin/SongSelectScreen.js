@@ -33,6 +33,7 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+import { db } from "../../firebase";
 
 const Stack = createStackNavigator();
 

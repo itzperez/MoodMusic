@@ -31,6 +31,7 @@ import { doc, getDoc, collection} from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
 
+        // tabBarOptions={{ showLabel: false }}
 
 const Tab = createBottomTabNavigator();
 

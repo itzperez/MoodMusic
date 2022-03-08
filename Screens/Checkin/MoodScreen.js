@@ -8,7 +8,6 @@ import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
 import Angry from '../../assets/Images/Feelings/angry.svg';
 import Anxious from '../../assets/Images/Feelings/anxious.svg';
-import AppLoading from 'expo-app-loading';
 import {
   useFonts,
   Rubik_300Light,
@@ -22,6 +21,7 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import { getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
