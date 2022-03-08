@@ -36,6 +36,8 @@ import {
     Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { db } from '../../firebase.js';
+import { doc, getDoc, collection, setDoc, addDoc } from 'firebase/firestore';
 
 const Stack = createStackNavigator();
 
@@ -72,19 +74,58 @@ export default function SongScreen({ route }) {
     //   </View>
     // );
 
-    const search = () => {
+    const share = async () => {
         // firebase stuff that uploads the text or whatever your review is
-        console.log("TEST: " + text);
+        // console.log("TEST: " + text);
 
         //getSuggestedSongs(setSongs, text, token);
-        setText("");
+        // setText("");
         // console.log("TOKEN!!!");
         // console.log(token);
         // console.log("SUGGESTED SONGS!!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         // console.log(suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]);
         //console.log("SUGGESTED SONGS: " + suggestedSongs)
+        setText("");
+        Keyboard.dismiss;
+        
+        let tempEmoji = "";
+        if (route.params.feeling == "HAPPY") {
+            tempEmoji = <Happy />;
+        } else if (route.params.feeling == "SAD") {
+            tempEmoji = <Sad />;
+        } else if (route.params.feeling == "CREATIVE") {
+            tempEmoji = <Image source={Images.creative} style={{ height: 43, width: 43, tintColor: 'white' }} />;
+        } else if (route.params.feeling == "ANXIOUS") {
+            tempEmoji = <Anxious />;
+        } else if (route.params.feeling == "EXCITED") {
+            tempEmoji = <Excited />;
+        } else if (route.params.feeling == "ANGRY") {
+            tempEmoji = <Angry />;
+        } else if (route.params.feeling == "CRUSHING") {
+            tempEmoji = <Image source={Images.crushing} style={{ height: 43, width: 43, tintColor: 'white' }} />;
+        } else if (route.params.feeling == "LONELY") {
+            tempEmoji = <Lonely />;
+        } else if (route.params.feeling == "HOPEFUL") {
+            tempEmoji = <Image source={Images.hopeful} style={{ height: 43, width: 43, tintColor: 'white' }} />;
+        } else if (route.params.feeling == "SCARED") {
+            tempEmoji = <Image source={Images.scared} style={{ height: 43, width: 43, tintColor: 'white' }} />;
+        }
 
+        const collRef = collection(db, "posts");
+        const docRef = await addDoc(collRef, {});
 
+        await setDoc(doc(db, "posts", docRef.id), {
+            id: docRef.id,
+            artist: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["album"]["artists"][0]["name"],
+            caption: text,
+            image: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["album"]["images"][0]["url"],
+            mood: route.params.feeling,
+            song: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["name"],
+            time: Date.now(),
+            userName: route.params.currUser.first_name,
+        })
+        navigation.navigate('Checkin');
+        navigation.navigate('HomeScreen');
     }
 
     // if (isLoading) {    
@@ -102,11 +143,11 @@ export default function SongScreen({ route }) {
                     style={styles.selectSongHeaderImage}
                     imageStyle={{ borderRadius: 15 }}>
                     <View style={styles.selectSongHeaderText}>
-                        <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen', { feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs, gridNum: route.params.gridNum })}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SongSelectScreen', { feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs, gridNum: route.params.gridNum, currUser: route.params.currUser })}>
                             <Back width={30} height={30} fill={'#FFFFFF'} />
                         </TouchableOpacity>
 
-                        <Text style={{ fontFamily: 'Rubik_700Bold', fontSize: 30, color: Colors.white }}>Sophia</Text>
+                        <Text style={{ fontFamily: 'Rubik_700Bold', fontSize: 30, color: Colors.white }}>{route.params.currUser.first_name}</Text>
                         <Text style={{ fontFamily: 'Rubik_400Regular', fontSize: 20, color: Colors.white }}>IS FEELING {route.params.feeling}</Text>
                     </View>
                     <View style={styles.selectSongHeaderEmoji}>
@@ -166,12 +207,12 @@ export default function SongScreen({ route }) {
                             value={text}
                             placeholder="Caption (optional)"
                         />
-                        {/* <TouchableOpacity onPress={search} style={styles.shareButton}> */}
-                        <TouchableOpacity onPress={() => {
+                        <TouchableOpacity onPress={share} style={styles.shareButton}>
+                        {/* <TouchableOpacity onPress={() => {
                             navigation.navigate('HomeScreen');
                             setText("");
                             Keyboard.dismiss;
-                            }} style={styles.shareButton}>
+                            }} style={styles.shareButton}> */}
                             <Text style={styles.shareText}>SHARE</Text>
                         </TouchableOpacity>
                     </View>

@@ -179,7 +179,7 @@ export default function SongScreen({route}) {
               <Back width={30} height={30} fill={'#FFFFFF'}/>
             </TouchableOpacity>
 
-            <Text style={{ fontFamily: 'Rubik_700Bold', fontSize: 30, color: Colors.white}}>Sophia</Text>
+            <Text style={{ fontFamily: 'Rubik_700Bold', fontSize: 30, color: Colors.white}}>{route.params.currUser.first_name}</Text>
             <Text style={{ fontFamily: 'Rubik_400Regular', fontSize: 20, color: Colors.white}}>IS FEELING {route.params.feeling}</Text>
           </View>
           <View style={styles.selectSongHeaderEmoji}>
@@ -241,7 +241,7 @@ export default function SongScreen({route}) {
           <Text style={styles.h1}>Suggested Songs</Text>
           <View style={styles.suggestedSongsGridContainer}>
             <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling,
-                suggestedSongs: suggestedSongs, gridNum: 0})}>
+                suggestedSongs: suggestedSongs, gridNum: 0, currUser: route.params.currUser})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][0]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>
@@ -254,7 +254,7 @@ export default function SongScreen({route}) {
               </ImageBackground>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling,
-                suggestedSongs: suggestedSongs, gridNum: 1})}>
+                suggestedSongs: suggestedSongs, gridNum: 1, currUser: route.params.currUser})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][1]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>
@@ -267,7 +267,7 @@ export default function SongScreen({route}) {
           </View>
           <View style={styles.suggestedSongsGridContainer}>
             <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling,
-                suggestedSongs: suggestedSongs, gridNum: 2})}>
+                suggestedSongs: suggestedSongs, gridNum: 2, currUser: route.params.currUser})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][2]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>
@@ -278,7 +278,7 @@ export default function SongScreen({route}) {
               </ImageBackground>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('SongSelectScreen', {feeling: route.params.feeling,
-                suggestedSongs: suggestedSongs, gridNum: 3})}>
+                suggestedSongs: suggestedSongs, gridNum: 3, currUser: route.params.currUser})}>
               <ImageBackground source={{ uri: `${suggestedSongs["tracks"]["items"][3]["album"]["images"][0]["url"]}`}}
                 style={styles.songItem}
                 imageStyle={ styles.songItemImage }>

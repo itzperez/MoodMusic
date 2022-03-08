@@ -36,6 +36,7 @@ import { getAuth } from "firebase/auth";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
   const [isAuthenticated, toggle] = useState(false);
 
   function Community() {
@@ -86,12 +87,12 @@ export default function App() {
               } else if (route.name === 'Community') {
                 return <Ionicons name="earth" size={size} color={color} />
               } else if (route.name === 'Checkin') {
-                //return <Ionicons name="musical-notes" size={size} color={color} />
-                return(
-                  <TouchableOpacity>
-                    <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
-                  </TouchableOpacity>
-                );
+                return <Ionicons name="musical-notes" size={size} color={color} />
+                // return(
+                //   <TouchableOpacity>
+                //     <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
+                //   </TouchableOpacity>
+                // );
             } else if (route.name === 'Messages') {
               return <Ionicons name="chatbubble-ellipses" size={size} color={color} />
               } else if (route.name === 'Profile') {
@@ -118,6 +119,13 @@ export default function App() {
 
   return contentDisplayed;
 }
+
+
+// { <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+//     <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
+//         Login
+//     </Text>
+// </ TouchableOpacity> }
 
 const styles = StyleSheet.create({
   container: {

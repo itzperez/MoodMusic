@@ -169,7 +169,7 @@ export default function SongScreen({route}) {
   // } else {
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.downButton} onPress={() => navigation.navigate('SongScreen', {feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs})}>
+        <TouchableOpacity style={styles.downButton} onPress={() => navigation.navigate('SongScreen', {feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs, currUser: route.params.currUser})}>
           <Down fill="#FFFFFF" />
         </TouchableOpacity>
         <ImageBackground source={{ uri: `${route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["album"]["images"][0]["url"]}`}}
@@ -182,7 +182,7 @@ export default function SongScreen({route}) {
           </View>
         </ImageBackground>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('ShareSongScreen', {feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs, gridNum: route.params.gridNum})}>
+          <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('ShareSongScreen', {feeling: route.params.feeling, suggestedSongs: route.params.suggestedSongs, gridNum: route.params.gridNum, currUser: route.params.currUser})}>
             <Text style={styles.shareText}>SHARE SONG</Text>
           </TouchableOpacity>
         </View>

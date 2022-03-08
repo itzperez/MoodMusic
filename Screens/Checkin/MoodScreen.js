@@ -8,6 +8,7 @@ import Lonely from '../../assets/Images/Feelings/lonely.svg';
 import Sad from '../../assets/Images/Feelings/sad.svg';
 import Angry from '../../assets/Images/Feelings/angry.svg';
 import Anxious from '../../assets/Images/Feelings/anxious.svg';
+import AppLoading from 'expo-app-loading';
 import {
   useFonts,
   Rubik_300Light,
@@ -101,11 +102,7 @@ export default function MoodScreen() {
     //   Rubik_900Black,
     //   Rubik_900Black_Italic
     // });
-    //
-    // // Check if fonts have loaded
-    // if (!fontsLoaded) {
-    //   return <AppLoading />;
-    // }
+    
 
     const navigation = useNavigation();
 
@@ -132,10 +129,15 @@ export default function MoodScreen() {
       }
     }, [])
 
+    // // Check if fonts have loaded
+    // if (!fontsLoaded) {
+    //   return <AppLoading />;
+    // }
+
     const renderItem = ({item}) => {
       return (
 
-            <TouchableOpacity style={styles.buttons} onPress={() => navigation.navigate('SongScreen', {feeling: item.feeling})}>
+            <TouchableOpacity style={styles.buttons} onPress={() => navigation.navigate('SongScreen', {feeling: item.feeling, currUser: currUser})}>
                 <View style={{flex: .35, height: '100%', justifyContent: 'center', alignItems: 'flex-end'}}>
                     {item.emoji}
                 </View>
@@ -152,7 +154,7 @@ export default function MoodScreen() {
     <View style={styles.container}>
 
         <ImageBackground resizeMode="cover" style={styles.topImage} source={require('../../assets/Images/mountain-background.jpg')} >
-            <Text style={{fontSize: 38, color: 'white', fontFamily: 'RubikLight', shadowColor: 'black', shadowOffset: {width: 2, height: 2}, shadowOpacity: 2,}}>
+            <Text style={{fontSize: 38, color: 'white', fontFamily: 'Rubik_300Light', shadowColor: 'black', shadowOffset: {width: 2, height: 2}, shadowOpacity: 2,}}>
                 Good day, {currUser.first_name}!
             </Text>
 
