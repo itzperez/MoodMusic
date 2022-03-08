@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, ImageBackground, TouchableOpacity, Button} from 'react-native';
 import Images from '../../assets/Images';
 import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Happy from '../../assets/Images/Feelings/happy.svg';
 import Excited from '../../assets/Images/Feelings/excited.svg';
 import Lonely from '../../assets/Images/Feelings/lonely.svg';
@@ -22,6 +22,10 @@ import {
   Rubik_900Black,
   Rubik_900Black_Italic
 } from '@expo-google-fonts/rubik';
+
+import { getAuth } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../../firebase.js';
 
 const emotions = [
   {
@@ -83,25 +87,50 @@ const emotions = [
 
 
 export default function MoodScreen() {
-    let [fontsLoaded] = useFonts({
-      Rubik_300Light,
-      Rubik_300Light_Italic,
-      Rubik_400Regular,
-      Rubik_400Regular_Italic,
-      Rubik_500Medium,
-      Rubik_500Medium_Italic,
-      Rubik_700Bold,
-      Rubik_700Bold_Italic,
-      Rubik_900Black,
-      Rubik_900Black_Italic
-    });
+    const [currUser, fetch] = useState({});
 
-    // Check if fonts have loaded
-    if (!fontsLoaded) {
-      return <AppLoading />;
-    }
+    // let [fontsLoaded] = useFonts({
+    //   Rubik_300Light,
+    //   Rubik_300Light_Italic,
+    //   Rubik_400Regular,
+    //   Rubik_400Regular_Italic,
+    //   Rubik_500Medium,
+    //   Rubik_500Medium_Italic,
+    //   Rubik_700Bold,
+    //   Rubik_700Bold_Italic,
+    //   Rubik_900Black,
+    //   Rubik_900Black_Italic
+    // });
+    //
+    // // Check if fonts have loaded
+    // if (!fontsLoaded) {
+    //   return <AppLoading />;
+    // }
 
     const navigation = useNavigation();
+
+    const getUserInfo = async (user) => {
+      const docRef = doc(db, 'users', user.uid)
+      let docSnap = await getDoc(docRef)
+      if(docSnap.exists) {
+        console.log(docSnap.data());
+        fetch(docSnap.data());
+      }
+    }
+
+
+    useEffect(() => {
+      const auth = getAuth();
+      const user = auth.currentUser
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        getUserInfo(user);
+
+      } else {
+        // No user is signed in
+      }
+    }, [])
 
     const renderItem = ({item}) => {
       return (
@@ -124,7 +153,7 @@ export default function MoodScreen() {
 
         <ImageBackground resizeMode="cover" style={styles.topImage} source={require('../../assets/Images/mountain-background.jpg')} >
             <Text style={{fontSize: 38, color: 'white', fontFamily: 'RubikLight', shadowColor: 'black', shadowOffset: {width: 2, height: 2}, shadowOpacity: 2,}}>
-                Good day, Sophia!
+                Good day, {currUser.first_name}!
             </Text>
 
         </ImageBackground>

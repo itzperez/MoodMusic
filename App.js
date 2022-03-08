@@ -28,6 +28,7 @@ import {
 
 import { db } from './firebase.js';
 import { doc, getDoc, collection} from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 
 
 
@@ -60,34 +61,15 @@ export default function App() {
     );
   }
 
-  const getUser = async () => {
-
-      const docRef = doc(db, "users", "user1");
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
-
-      console.log('after getDoc');
-
-      };
-
-
-
-  useEffect(() => {
-    console.log('inside useEffect');
-    getUser();
-
-  }, []);
-
-
   let contentDisplayed = null;
+
+  const callbackApp = () => {
+      toggle(true);
+  }
 
   if (!isAuthenticated) {
         contentDisplayed = (
-            < OnboardingStack/>
+            < OnboardingStack callbackApp={callbackApp}/>
         )
 
     } else {
@@ -135,13 +117,6 @@ export default function App() {
 
   return contentDisplayed;
 }
-
-
-// <TouchableOpacity onPress={() => toggle(true)} style={{backgroundColor: Colors.purple, flex: .1, width: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-//     <Text style={{fontSize: 28, color: Colors.white, fontFamily: 'Rubik_700Bold'}}>
-//         Login
-//     </Text>
-// </ TouchableOpacity>
 
 const styles = StyleSheet.create({
   container: {
