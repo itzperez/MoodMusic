@@ -36,7 +36,7 @@ export default function CommunityScreen({route}) {
                 <TouchableOpacity onPress={() => navigation.navigate('CommunitiesScreen')}>
                     <Back style={{marginLeft: 5}} width={25} height={25} fill={'black'}/>
                 </TouchableOpacity>
-                <Text style={{fontSize: 36, marginLeft: 10}}> {route.params.community.name} </Text>
+                <Text style={{fontSize: 36, marginLeft: 10, fontFamily: 'Rubik_500Medium'}}>{route.params.community.name}</Text>
             </View>
 
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -46,7 +46,7 @@ export default function CommunityScreen({route}) {
         </View>
 
         <View style={{flex: .1, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{fontSize: 26}}> Community playlist </Text>
+            <Text style={{fontSize: 26, fontFamily: 'Rubik_400Regular'}}> Community playlist </Text>
 
         </View>
 
@@ -55,6 +55,7 @@ export default function CommunityScreen({route}) {
             <FlatList
               data={route.params.community.songs}
               renderItem={renderSong}
+              keyExtractor={(item) => item.rank}
             />
 
         </View>

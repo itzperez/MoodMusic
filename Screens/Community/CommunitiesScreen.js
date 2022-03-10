@@ -303,7 +303,7 @@ export default function CommunitiesScreen() {
               marginTop: 5,
           }} onPress={() => nextScreen(item)}>
 
-                <Text style={{fontSize: 20, textAlign: 'center', color: 'white'}}>
+                <Text style={{fontSize: 20, textAlign: 'center', color: 'white', fontFamily: 'Rubik_400Regular'}}>
                   {item.name}
                 </Text>
 
@@ -318,7 +318,7 @@ export default function CommunitiesScreen() {
 
                 <View style={{flex: .2, flexDirection: 'row', alignItems: 'center', width: '100%'}}>
                     <Heart style={{marginLeft: 20}}height={25} width={25} fill={'black'} />
-                    <Text style={{marginLeft: 10, fontSize: 22}}> MY COMMUNITIES </Text>
+                    <Text style={{marginLeft: 10, fontSize: 22, fontFamily: 'Rubik_500Medium'}}> MY COMMUNITIES </Text>
 
                 </View>
 
@@ -335,7 +335,7 @@ export default function CommunitiesScreen() {
 
             <View style={{flex: .1, flexDirection: 'row', alignItems: 'center', width: '100%'}}>
                 <Community style={{marginLeft: 20}}height={30} width={30} fill={'black'} />
-                <Text style={{marginLeft: 10, fontSize: 22}}> FIND COMMUNITIES </Text>
+                <Text style={{marginLeft: 10, fontSize: 22, fontFamily: 'Rubik_500Medium'}}> FIND COMMUNITIES </Text>
 
             </View>
 

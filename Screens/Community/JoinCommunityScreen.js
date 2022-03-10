@@ -20,24 +20,24 @@ export default function JoinCommunityScreen({route}) {
 
           <View style={{flex: .4, width: '100%'}}>
               <View style={{flex: .3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                    <Text style={{fontSize: 36, marginLeft: 20}}> {route.params.community.name} </Text>
+                    <Text style={{fontSize: 36, marginLeft: 20, fontFamily: 'Rubik_500Medium'}}>{route.params.community.name} </Text>
 
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Friends style={{marginRight: 5}} height={30} width={30} fill={'black'} />
-                        <Text style={{marginRight: 20, fontSize: 16}}> {route.params.community.numberOfMembers} </Text>
+                        <Text style={{marginRight: 20, fontSize: 16, fontFamily: 'Rubik_400Regular'}}> {route.params.community.numberOfMembers} </Text>
 
                     </View>
 
               </View>
 
               <View style={{flex: .7, width: '92%'}}>
-                    <Text style={{marginLeft: 25, marginTop: 15, fontSize: 22}}> {route.params.community.description} </Text>
+                    <Text style={{marginLeft: 25, marginTop: 15, fontSize: 22, fontFamily: 'Rubik_400Regular'}}>{route.params.community.description}</Text>
               </View>
 
           </View>
 
           <TouchableOpacity onPress={() => joinCommunity(route.params.community)} style={{flex: .1, backgroundColor: '#3B8EA5', width: '35%', justifyContent: 'center', alignItems: 'center', borderRadius: 10}}>
-              <Text style={{fontSize: 26, color: 'white'}}>
+              <Text style={{fontSize: 26, color: 'white', fontFamily: 'Rubik_500Medium', textTransform: 'uppercase'}}>
                   Join
               </Text>
           </TouchableOpacity>

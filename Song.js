@@ -24,23 +24,23 @@ export default function Song({rank, songName, artistName, imageUrl, numberVotes}
 
 
     return (
-        <TouchableOpacity style={{marginBottom: 20, backgroundColor: '#3B8EA5', flex: 1, height: 90, marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', borderRadius: 15}}>
+        <TouchableOpacity key={rank} style={{marginBottom: 20, backgroundColor: '#3B8EA5', flex: 1, height: 90, marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', borderRadius: 15}}>
             <View style={styles.b}>
                 <Image source={{uri: imageUrl}} style={{height: 64, width: 64}}/>
             </View>
 
             <View style={styles.c}>
-                <Text numberOfLines={1} style={{fontSize: 22, color: 'white'}}> {songName} </Text>
-                <Text numberOfLines={1} style={{color: 'white'}}> {artistName} </Text>
+                <Text numberOfLines={1} style={{fontSize: 22, color: 'white', fontFamily: 'Rubik_400Regular'}}> {songName} </Text>
+                <Text numberOfLines={1} style={{color: 'white', fontFamily: 'Rubik_300Light'}}> {artistName} </Text>
             </View>
 
             <View style={styles.d}>
-                <Text numberOfLines={1} style={{color: '#7044A9', fontSize: 35}}> {rank} </Text>
+                <Text numberOfLines={1} style={{color: '#7044A9', fontSize: 40, fontFamily: 'Rubik_400Regular'}}> {rank} </Text>
             </View>
 
             <TouchableOpacity onPress={press} style={styles.e}>
                 {upVoted ? <Liked style={{marginBottom: 2}} height={30} width={30} fill={'black'} /> : <Like style={{marginBottom: 2}} height={30} width={30} fill={'black'} />}
-                <Text> {upVotes} </Text>
+                <Text style={{fontFamily: 'Rubik_400Regular'}}> {upVotes} </Text>
 
             </TouchableOpacity>
 
