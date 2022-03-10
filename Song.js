@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
-import Like from './assets/Images/like.svg'
-import Liked from './assets/Images/liked.svg'
+import Like from './assets/Images/like.svg';
+import Liked from './assets/Images/liked.svg';
 
 export default function Song({rank, songName, artistName, imageUrl, numberVotes}) {
     const [upVoted, toggle] = useState(false);

@@ -154,15 +154,15 @@ export default function MoodScreen() {
     <View style={styles.container}>
 
         <ImageBackground resizeMode="cover" style={styles.topImage} source={require('../../assets/Images/mountain-background.jpg')} >
-            <Text style={{fontSize: 38, color: 'white', fontFamily: 'Rubik_300Light', shadowColor: 'black', shadowOffset: {width: 2, height: 2}, shadowOpacity: 2,}}>
-                Good day, {currUser.first_name}!
+            <Text style={{fontSize: 38, color: 'white', fontFamily: 'Rubik_300Light', shadowColor: 'black', shadowOffset: {width: 2, height: 2}, shadowOpacity: 2, textAlign: 'center'}}>
+                Good day,{"\n"}{currUser.first_name}!
             </Text>
 
         </ImageBackground>
 
-        <View style={{flex: .2, justifyContent: 'flex-end', alignItems: 'center'}}>
+        <View style={{flex: .2, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={styles.question}>
-                How are we feeling today?
+                How are we{"\n"}feeling today?
             </Text>
         </View>
 
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
       marginBottom: 20,
   },
   bottomHalf: {
-    flex: .5,
+    flex: .6,
     width: '100%',
   },
   buttons: {

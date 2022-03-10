@@ -10,8 +10,8 @@ import AppLoading from 'expo-app-loading';
 import HomeStack from './Screens/HomeStack';
 import OnboardingStack from './Screens/Onboarding/OnboardingStack.js'
 import CommunitiesStack from './Screens/Community/CommunitiesStack.js';
-
 import CheckinStack from './Screens/Checkin/CheckinStack.js';
+import MessagesStack from './Screens/Messages/MessagesStack.js';
 import Colors from "./Themes/colors";
 import {
   useFonts,
@@ -79,6 +79,7 @@ export default function App() {
       contentDisplayed = (
         <NavigationContainer>
           <Tab.Navigator
+          // initialRouteName='Checkin'
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
@@ -88,12 +89,12 @@ export default function App() {
               } else if (route.name === 'Community') {
                 return <Ionicons name="earth" size={size} color={color} />
               } else if (route.name === 'Checkin') {
-                return <Ionicons name="musical-notes" size={size} color={color} />
-                // return(
-                //   <TouchableOpacity>
-                //     <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
-                //   </TouchableOpacity>
-                // );
+                // return <Ionicons name="musical-notes" size={size} color={color} />
+                return(
+                  // <TouchableOpacity>
+                    <Image style={{ height: 40, width: 40}} source={require('./assets/Images/Nav-Icons/musical-note.png')} />
+                  // </TouchableOpacity>
+                );
             } else if (route.name === 'Messages') {
               return <Ionicons name="chatbubble-ellipses" size={size} color={color} />
               } else if (route.name === 'Profile') {
@@ -108,10 +109,10 @@ export default function App() {
             tabBarShowLabel: false,
           })}
           >
-            <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
+            <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
             <Tab.Screen name="Community" component={CommunitiesStack} />
             <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Messages" component={Messages} />
+            <Tab.Screen name="Messages" component={MessagesStack} options={{headerShown: false}}/>
             <Tab.Screen name="Profile" component={ProfileScreen} />
           </Tab.Navigator>
         </NavigationContainer>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import Onboarding from 'react-native-onboarding-screen';
 import { useNavigation } from '@react-navigation/native';
 import Back from '../../assets/Images/Icons/back-svgrepo-com.svg'

@@ -121,11 +121,12 @@ export default function SongScreen({ route }) {
             image: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["album"]["images"][0]["url"],
             mood: route.params.feeling,
             song: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["name"],
+            previewURL: route.params.suggestedSongs["tracks"]["items"][route.params.gridNum]["preview_url"],
             time: Date.now(),
             userName: route.params.currUser.first_name,
         })
-        navigation.navigate('Checkin');
-        navigation.navigate('HomeScreen');
+        navigation.navigate('MoodScreen');
+        navigation.navigate('Friend Feed');
     }
 
     // if (isLoading) {    

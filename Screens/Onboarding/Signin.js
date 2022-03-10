@@ -95,7 +95,7 @@ export default function Signin({callbackOnboardingStack}) {
 
             </View>
 
-            <View style={{flex: .1, alignItems: 'center', width: '100%'}}>
+            <View style={{flex: .15, alignItems: 'center', justifyContent: 'flex-end', width: '100%'}}>
                 <TouchableOpacity onPress={loginUser} style={{flex: .7, paddingLeft: 15, paddingRight: 15}}>
                     <Text style={{fontSize: 26, fontFamily: 'Rubik_400Regular', color: '#7044A9'}}>
                         Log in
@@ -103,7 +103,7 @@ export default function Signin({callbackOnboardingStack}) {
                 </TouchableOpacity>
             </View>
 
-            <View style={{flex: .1, alignItems: 'center', width: '100%'}}>
+            <View style={{flex: .15, alignItems: 'center', width: '100%'}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={{flex: .7, paddingLeft: 15, paddingRight: 15}}>
                     <Text style={{fontSize: 24, fontFamily: 'Rubik_400Regular', color: '#e9497e'}}>
                         Sign up

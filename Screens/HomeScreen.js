@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, Pressable, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Images from '../assets/Images';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -8,6 +8,10 @@ import Lonely from '../assets/Images/Feelings/lonely.svg';
 import Happy from '../assets/Images/Feelings/happy.svg';
 import Angry from '../assets/Images/Feelings/angry.svg';
 import Sad from '../assets/Images/Feelings/sad.svg';
+import Anxious from '../assets/Images/Feelings/anxious.svg';
+import Excited from '../assets/Images/Feelings/excited.svg';
+import Play from '../assets/Images/Icons/play.svg';
+import MessageIcon from '../assets/Images/Icons/message-svgrepo-com.svg';
 import Colors from "../Themes/colors";
 import {
   useFonts,
@@ -24,75 +28,7 @@ import {
 } from '@expo-google-fonts/rubik';
 import { db } from '../firebase.js';
 import { doc, getDoc, collection, getDocs, connectFirestoreEmulator } from 'firebase/firestore';
-import { ClipPath } from 'react-native-svg';
-
-// const LOCATIONS = [
-//   {
-//     id: 1,
-//     image: Images.lakeLouise,
-//     title: 'Lake Louise',
-//     description: 'Lake Louise is rich heritage as one of the world\'s most awe-inspiring mountain destinations.',
-//     screenName: 'LakeLouiseScreen'
-//   },
-//   {
-//     id: 2,
-//     image: Images.sanFrancisco,
-//     title: 'San Francisco',
-//     description: 'Grab your coat and a handful of glitter and enter the land of fog and fabulousness.',
-//     screenName: 'SanFranciscoScreen'
-//   },
-//   {
-//     id: 3,
-//     image: Images.alesund,
-//     title: 'Ålesund',
-//     description: 'The far northern port of Ålesund might be far wway from the bright lights of metropoliton Norway.',
-//     screenName: 'AlesundScreen'
-//   }
-// ]
-
-const POSTS = [
-  {
-    id: 1,
-    mood: "LONELY",
-    song: "Lonely",
-    artist: "Noah Cyrus",
-    emoji: <Lonely />,
-    caption: "Feeling a little sad today.",
-    image: Images.lonelyNoahCyrus,
-    userName: "Sophia"
-  },
-  {
-    id: 2,
-    mood: "HAPPY",
-    song: "Happy",
-    artist: "Pharrell Williams",
-    emoji: <Happy />,
-    caption: "Wow! Really loving the weather today.",
-    image: Images.happyPharrellWilliams,
-    userName: "Ethan"
-  },
-  {
-    id: 3,
-    mood: "ANGRY",
-    song: "Angry Too",
-    artist: "Lola Blanc",
-    emoji: <Angry />,
-    caption: "Grr...anyone free to talk? Feeling quite mad.",
-    image: Images.angryTooLolaBlanc,
-    userName: "Alexis"
-  },
-  {
-    id: 4,
-    mood: "SAD",
-    song: "SAD (Clap Your Hands)",
-    artist: "Young Rising Sons",
-    emoji: <Sad />,
-    caption: "*sniffles*",
-    image: Images.sadClapYourHandsYoungRisingSons,
-    userName: "Nicholas"
-  }
-
-]
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
   // Load fonts
@@ -110,14 +46,17 @@ export default function HomeScreen() {
   });
   const navigation = useNavigation();
 
+  const [modalVisible, setModalVisible] = useState(false);
   const [allDocs, setAllDocs] = useState([]);
+  const [selectedItem, setSelectedItem] = useState();
 
   useEffect(() => {
     const fetchPostsData = async () => {
       // const collRef = collection(db, "posts");
       let docsPromise = await getDocs(collection(db, 'posts'));
       let docsArr = docsPromise.docs.map(document => document.data());
-      setAllDocs(docsArr);
+      let sortedDocsArr = docsArr.sort((a, b) => a.time < b.time);
+      setAllDocs(sortedDocsArr);
       if (docsArr) {
         console.log(docsArr);
         for (const doc of docsArr) {
@@ -141,7 +80,8 @@ export default function HomeScreen() {
         // const collRef = collection(db, "posts");
         let docsPromise = await getDocs(collection(db, 'posts'));
         let docsArr = docsPromise.docs.map(document => document.data());
-        setAllDocs(docsArr);
+        let sortedDocsArr = docsArr.sort((a, b) => a.time < b.time);
+        setAllDocs(sortedDocsArr);
         if (docsArr) {
           console.log(docsArr);
           for (const doc of docsArr) {
@@ -170,41 +110,102 @@ export default function HomeScreen() {
     return <AppLoading />;
   }
 
-  // const renderItem = ({ item }) => {
-  //   return (
-  //     <Pressable onPress={() => {navigation.navigate(item.screenName, {
-  //       location: item
-  //     })}}>
-  //       <View key={item.id} style={styles.destinations}>
-  //         <Image source={item.image} style={styles.destinationImages}></Image>
-  //         <View style={styles.destinationText}>
-  //           <View style={styles.titleDescription}>
-  //             <Text style={styles.destinationTitle}>{item.title}</Text>
-  //             <Text style={styles.destinationDescription}>{item.description}</Text>
-  //           </View>
-  //           <View style={styles.destinationExplore}>
-  //             <Text style={styles.exploreText}>Explore</Text>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </Pressable>
-  //   );
-  // }item.image
-
   const renderItem = ({ item }) => {
-    // let imageCode = eval(item.image);
-    // const emojiCode = item.emoji;
     return (
       <View key={item.id} style={styles.postContainer}>
         <Image source={{ uri: item.image }} style={styles.postImage}></Image>
         <View style={styles.songDetails}>
           <Text style={{ fontFamily: "Rubik_500Medium", fontSize: 30, textAlign: 'center', color: Colors.black }}>{item.song}</Text>
-          <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 20, textAlign: 'center', textTransform: 'uppercase', color: Colors.black }}>{item.artist}</Text>
-          <Text style={{ fontFamily: "Rubik_400Regular_Italic", fontSize: 15, textAlign: 'center', color: Colors.black, margin: 10 }}>{item.caption}</Text>
+          <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 20, textAlign: 'center', textTransform: 'uppercase', color: Colors.black }}>{item.artist}</Text>   
+          {
+            item.previewURL !== null ? <TouchableOpacity 
+            onPress={() => {
+              navigation.navigate("PlaySong", {previewURL: item.previewURL})
+            }}
+            style={{flexDirection: 'row', alignItems: 'center', backgroundColor: Colors.blue, padding: 10, margin: 10, borderRadius: 10}}
+            >
+            <Play fill={ Colors.white } style={{width: 30, height: 30, marginRight: 10}} />
+            <View>              
+              <Text style={{color: Colors.white, textTransform: 'uppercase'}}>Play song</Text>
+            </View>
+          </TouchableOpacity> : null
+          }
+          {
+            item.caption !== "" ? <Text style={{ fontFamily: "Rubik_400Regular_Italic", fontSize: 15, textAlign: 'center', color: Colors.black, margin: 10 }}>{item.caption}</Text> : null
+          }
+          
         </View>
         <View style={styles.postProfileInfo} >
-          <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 15, textAlign: 'center', textTransform: 'uppercase', color: Colors.white, marginLeft: 15, marginRight: 15 }}>{item.userName}</Text>
-          <View style={styles.postEmoji}>
+          <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 15, textAlign: 'center', textTransform: 'uppercase', color: Colors.white, marginLeft: 15, marginRight: 5 }}>{item.userName}</Text>
+
+          <Modal
+            animationType='slide'
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            {
+              selectedItem !== undefined ? <View style={styles.modalContainer}>
+              <View style={{ alignItems: 'center', }}>
+                {
+                  selectedItem.mood === "HAPPY" ? <Happy /> : null
+                }
+                {
+                  selectedItem.mood === "SAD" ? <Sad /> : null
+                }
+                {
+                  selectedItem.mood === "CREATIVE" ? <Image source={Images.creative} style={{ height: 43, width: 43, tintColor: 'white' }} /> : null
+                }
+                {
+                  selectedItem.mood === "ANXIOUS" ? <Anxious /> : null
+                }
+                {
+                  selectedItem.mood === "EXCITED" ? <Excited /> : null
+                }
+                {
+                  selectedItem.mood === "ANGRY" ? <Angry /> : null
+                }
+                {
+                  selectedItem.mood === "CRUSHING" ? <Image source={Images.crushing} style={{ height: 43, width: 43, tintColor: 'white' }} /> : null
+                }
+                {
+                  selectedItem.mood === "LONELY" ? <Lonely /> : null
+                }
+                {
+                  selectedItem.mood === "HOPEFUL" ? <Image source={Images.hopeful} style={{ height: 43, width: 43, tintColor: 'white' }} /> : null
+                }
+                {
+                  selectedItem.mood === "SCARED" ? <Image source={Images.scared} style={{ height: 43, width: 43, tintColor: 'white' }} /> : null
+                }
+              </View>
+
+              <Text style={{ color: Colors.white, fontFamily: "Rubik_400Regular", fontSize: 20, textAlign: 'center' }}>
+                {selectedItem.userName} is feeling {"\n"}
+                <Text style={{ fontFamily: "Rubik_700Bold", lineHeight: 50, fontSize: 40 }}>
+                  {selectedItem.mood}
+                </Text>{"\n"} Go reach out!
+              </Text>
+
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={{backgroundColor: Colors.blue, marginTop: 50, padding: 10, borderRadius: 10}}>
+                <Text style={{
+                  color: Colors.white,
+                  textTransform: 'uppercase',
+                  textAlign: 'center',
+                }}>Return to feed</Text>
+              </TouchableOpacity>
+            </View> : null
+            }
+            
+          </Modal>
+          <Pressable
+            style={styles.postEmoji}
+            onPress={() => {
+              setSelectedItem(item);
+              setModalVisible(true);
+            }}
+          >
             {
               item.mood === "HAPPY" ? <Happy /> : null
             }
@@ -235,22 +236,14 @@ export default function HomeScreen() {
             {
               item.mood === "SCARED" ? <Image source={Images.scared} style={{ height: 43, width: 43, tintColor: 'white' }} /> : null
             }
-          </View>
+          </Pressable>
+          <TouchableOpacity style={{marginLeft: 10, marginRight: 10}} onPress={() => {
+            navigation.navigate("Messages");
+          }}>
+            <MessageIcon style={{width: 43, height: 43, shadowColor: Colors.black, shadowOffset: { width: 1, height: 1 }, shadowOpacity: 1,}} fill={Colors.white} />
+          </TouchableOpacity>
         </View>
       </View>
-
-      // <View key={item.id} style={styles.postContainer}>
-      //   <Image source={item.image} style={styles.postImage}></Image>
-      //   <View style={styles.songDetails}>
-      //     <Text style={{ fontFamily: "Rubik_500Medium", fontSize: 30, textAlign: 'center', color: Colors.black}}>{item.song}</Text>
-      //     <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 20, textAlign: 'center', textTransform: 'uppercase', color: Colors.black}}>{item.artist}</Text>
-      //     <Text style={{ fontFamily: "Rubik_400Regular_Italic", fontSize: 15, textAlign: 'center', color: Colors.black, margin: 10}}>{item.caption}</Text>
-      //   </View>
-      //   <View style={styles.postProfileInfo} >
-      //     <Text style={{ fontFamily: "Rubik_400Regular", fontSize: 15, textAlign: 'center', textTransform: 'uppercase', color: Colors.white, marginLeft: 15, marginRight: 15}}>{item.userName}</Text>
-      //     {item.emoji}
-      //   </View>
-      // </View>
     );
   }
   console.log("BEFORE RETURN");
@@ -292,8 +285,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.gray,
     borderWidth: 1,
     shadowColor: Colors.black,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 2,
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 3,
     marginBottom: 30,
   },
   postImage: {
@@ -306,81 +299,39 @@ const styles = StyleSheet.create({
   },
   songDetails: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   postProfileInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.purple,
     padding: 10,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
   },
-
-
-  searchbar: {
-    width: '85%',
-    flex: 1,
-    margin: 15,
-    padding: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  destinationsDropDown: {
-    width: '85%',
-    flex: 1,
-    marginTop: 15,
-  },
-  horizontalScroll: {
-    width: '85%',
-    flex: 8,
-    margin: 20,
-  },
-  destinations: {
-    height: '90%',
-    width: 291,
+  button: {
+    height: 75,
+    backgroundColor: '#3B8EA5',
     margin: 10,
     borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: 'gray',
-  },
-  destinationImages: {
-    height: 290,
-    width: 290,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  destinationText: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    height: '30%',
-  },
-  titleDescription: {
-    margin: 15,
-    marginTop: 20,
-  },
-  destinationTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 10,
-  },
-  destinationDescription: {
-    color: 'gray',
-    fontSize: 12,
-  },
-  destinationExplore: {
-    margin: 15,
-  },
-  exploreText: {
-    textTransform: 'uppercase',
-    fontSize: 10,
-    fontWeight: 'bold'
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   postEmoji: {
     height: '100%',
     shadowColor: Colors.black,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 1,
+    marginLeft: 10,
+    marginRight: 10
   },
+  modalContainer: {
+    backgroundColor: Colors.transparentblack,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

@@ -213,18 +213,6 @@ export default function SongScreen({route}) {
             {
               route.params.feeling === "SCARED" ? <Image source={Images.scared} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
             }
-            {
-              route.params.feeling === "CREATIVE" ? <Image source={Images.creative} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
-            }
-            {
-              route.params.feeling === "CRUSHING" ? <Image source={Images.crushing} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
-            }
-            {
-              route.params.feeling === "HOPEFUL" ? <Image source={Images.hopeful} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
-            }
-            {
-              route.params.feeling === "SCARED" ? <Image source={Images.scared} style={{height: 43, width: 43, tintColor: 'white'}} /> : null
-            }
 
           </View>
         </ImageBackground>
