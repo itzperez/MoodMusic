@@ -9,6 +9,7 @@ import { getAccessToken, getSuggestedSongs } from './utils/apiCalls';
 import AppLoading from 'expo-app-loading';
 import HomeStack from './Screens/HomeStack';
 import OnboardingStack from './Screens/Onboarding/OnboardingStack.js'
+import CommunitiesStack from './Screens/Community/CommunitiesStack.js';
 
 import CheckinStack from './Screens/Checkin/CheckinStack.js';
 import Colors from "./Themes/colors";
@@ -108,7 +109,7 @@ export default function App() {
           })}
           >
             <Tab.Screen name="Home" component={HomeStack} options={{ title: 'Friend Feed'}}/>
-            <Tab.Screen name="Community" component={Community} />
+            <Tab.Screen name="Community" component={CommunitiesStack} />
             <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
             <Tab.Screen name="Messages" component={Messages} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
