@@ -8,6 +8,7 @@ import { doc, getDoc, collection, getDocs, connectFirestoreEmulator } from 'fire
 import Colors from "../../Themes/colors";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
+
 import {
     useFonts,
     Rubik_300Light,
@@ -23,7 +24,7 @@ import {
 } from '@expo-google-fonts/rubik';
 
 const CHATS = [
-    {  
+    {
         id: 1,
         profilePic: require('../../assets/Images/sophia.jpg'),
         firstName: 'Sophia',
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontFamily: 'Rubik_400Regular',
         textTransform: 'uppercase'
-    }, 
+    },
     profilePic: {
         flex: 1,
         height: 60,

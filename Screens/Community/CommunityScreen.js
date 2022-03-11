@@ -21,6 +21,7 @@ export default function CommunityScreen({route}) {
                 artistName={track.artistName}
                 imageUrl={track.imageUrl}
                 numberVotes={track.numberVotes}
+                joined={true}
             />
         )
     }
@@ -29,14 +30,13 @@ export default function CommunityScreen({route}) {
 
   return (
     <View style={styles.container}>
-        <View style={{flex: .02, width: '100%'}}/>
 
-        <View style={{flex: .13, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <View style={{flex: .1, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Back style={{marginLeft: 5}} width={25} height={25} fill={'black'}/>
+                    <Back style={{marginLeft: 15}} width={25} height={25} fill={'black'}/>
                 </TouchableOpacity>
-                <Text style={{fontSize: 36, marginLeft: 10, fontFamily: 'Rubik_500Medium'}}>{route.params.community.name}</Text>
+                <Text style={{fontSize: 36, marginLeft: 20, fontFamily: 'Rubik_500Medium'}}>{route.params.community.name}</Text>
             </View>
 
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -51,7 +51,7 @@ export default function CommunityScreen({route}) {
         </View>
 
 
-        <View style={{flex: .6, width: '100%'}}>
+        <View style={{flex: .7, width: '100%'}}>
             <FlatList
               data={route.params.community.songs}
               renderItem={renderSong}
@@ -60,7 +60,11 @@ export default function CommunityScreen({route}) {
 
         </View>
 
-        <View style={{flex: .15, width: '100%'}}/>
+        <TouchableOpacity onPress={() => navigation.navigate('CommunitiesScreen')} style={{flex: .1, width: '35%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', borderRadius: 10}}>
+            <Text style={{fontSize: 16, color: '#e9497e', textAlign: 'center', fontFamily: 'Rubik_300Light'}}>
+                Leave community
+            </Text>
+        </TouchableOpacity>
 
     </View>
   );

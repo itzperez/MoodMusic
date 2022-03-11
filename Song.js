@@ -5,7 +5,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import Like from './assets/Images/like.svg';
 import Liked from './assets/Images/liked.svg';
 
-export default function Song({rank, songName, artistName, imageUrl, numberVotes}) {
+export default function Song({rank, songName, artistName, imageUrl, numberVotes, joined}) {
     const [upVoted, toggle] = useState(false);
     const [upVotes, change] = useState(numberVotes);
 
@@ -34,15 +34,24 @@ export default function Song({rank, songName, artistName, imageUrl, numberVotes}
                 <Text numberOfLines={1} style={{color: 'white', fontFamily: 'Rubik_300Light'}}> {artistName} </Text>
             </View>
 
-            <View style={styles.d}>
-                <Text numberOfLines={1} style={{color: '#7044A9', fontSize: 40, fontFamily: 'Rubik_400Regular'}}> {rank} </Text>
-            </View>
 
-            <TouchableOpacity onPress={press} style={styles.e}>
-                {upVoted ? <Liked style={{marginBottom: 2}} height={30} width={30} fill={'black'} /> : <Like style={{marginBottom: 2}} height={30} width={30} fill={'black'} />}
-                <Text style={{fontFamily: 'Rubik_400Regular'}}> {upVotes} </Text>
 
-            </TouchableOpacity>
+            {joined ?
+                (<>
+                    <View style={styles.d}>
+                        <Text numberOfLines={1} style={{color: '#7044A9', fontSize: 40, fontFamily: 'Rubik_400Regular'}}> {rank} </Text>
+                    </View>
+                    <TouchableOpacity onPress={press} style={styles.e}>
+                    {upVoted ? <Liked style={{marginBottom: 2}} height={30} width={30} fill={'black'} /> : <Like style={{marginBottom: 2}} height={30} width={30} fill={'black'} />}
+                    <Text style={{fontFamily: 'Rubik_400Regular'}}> {upVotes} </Text>
+                </TouchableOpacity>
+                 </>) : null
+
+                // (<View style={styles.e}>
+                //     {upVoted ? <Liked style={{marginBottom: 2}} height={30} width={30} fill={'black'} /> : <Like style={{marginBottom: 2}} height={30} width={30} fill={'black'} />}
+                //     <Text style={{fontFamily: 'Rubik_400Regular'}}> {upVotes} </Text>
+                // </View>)
+            }
 
 
         </View>
