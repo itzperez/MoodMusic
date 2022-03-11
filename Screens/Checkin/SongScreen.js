@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     flex: 4,
     height: '100%',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   suggestedSongsGridContainer: {
     flex: 1,

@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     shadowColor: Colors.black,
     shadowOffset: { width: 3, height: 3 },
     shadowOpacity: 3,
-    marginBottom: 30,
+    marginVertical: 15
   },
   postImage: {
     flex: 1,

@@ -33,7 +33,7 @@ export default function CommunityScreen({route}) {
 
         <View style={{flex: .13, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => navigation.navigate('CommunitiesScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Back style={{marginLeft: 5}} width={25} height={25} fill={'black'}/>
                 </TouchableOpacity>
                 <Text style={{fontSize: 36, marginLeft: 10, fontFamily: 'Rubik_500Medium'}}>{route.params.community.name}</Text>

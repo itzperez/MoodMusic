@@ -15,7 +15,7 @@ export default function HomeStack() {
       screenOptions= {() => ({
         headerShown: true,
       })}>
-      <Stack.Screen name="Friend Feed" component={HomeScreen}/>
+      <Stack.Screen name="Friend Feed" component={HomeScreen} options={() => ({headerShown: false})} />
       <Stack.Screen name="PlaySong" 
         component={PlaySong}
         options={() => ({

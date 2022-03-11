@@ -24,7 +24,7 @@ export default function Song({rank, songName, artistName, imageUrl, numberVotes}
 
 
     return (
-        <TouchableOpacity key={rank} style={{marginBottom: 20, backgroundColor: '#3B8EA5', flex: 1, height: 90, marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', borderRadius: 15}}>
+        <View key={rank} style={{marginBottom: 20, backgroundColor: '#3B8EA5', flex: 1, height: 90, marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', borderRadius: 15}}>
             <View style={styles.b}>
                 <Image source={{uri: imageUrl}} style={{height: 64, width: 64}}/>
             </View>
@@ -45,7 +45,7 @@ export default function Song({rank, songName, artistName, imageUrl, numberVotes}
             </TouchableOpacity>
 
 
-        </TouchableOpacity>
+        </View>
     );
 }
 

@@ -12,6 +12,7 @@ import OnboardingStack from './Screens/Onboarding/OnboardingStack.js'
 import CommunitiesStack from './Screens/Community/CommunitiesStack.js';
 import CheckinStack from './Screens/Checkin/CheckinStack.js';
 import MessagesStack from './Screens/Messages/MessagesStack.js';
+import ProfileStack from './Screens/Profile/ProfileStack';
 import Colors from "./Themes/colors";
 import {
   useFonts,
@@ -109,11 +110,47 @@ export default function App() {
             tabBarShowLabel: false,
           })}
           >
-            <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Community" component={CommunitiesStack} />
+            <Tab.Screen name="Home" component={HomeStack} options={{
+                headerStyle: {
+                    backgroundColor: Colors.purple,
+                },
+                headerTitleStyle: {
+                    color: Colors.white,
+                    fontFamily: 'Rubik_400Regular',
+                    letterSpacing: 3,
+                    fontSize: 20
+                },
+                headerTitle: 'MOOD MUSIC',
+                headerLeft: () => null
+            }}/>
+            <Tab.Screen name="Community" component={CommunitiesStack} options={{
+                headerStyle: {
+                    backgroundColor: Colors.purple,
+                },
+                headerTitleStyle: {
+                    color: Colors.white,
+                    fontFamily: 'Rubik_400Regular',
+                    letterSpacing: 3,
+                    fontSize: 20
+                },
+                headerTitle: 'COMMUNITY',
+                headerLeft: () => null
+            }}/>
             <Tab.Screen name="Checkin" component={CheckinStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Messages" component={MessagesStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Profile" component={ProfileScreen} />
+            <Tab.Screen name="Messages" component={MessagesStack} options={{
+                headerStyle: {
+                    backgroundColor: Colors.purple,
+                },
+                headerTitleStyle: {
+                    color: Colors.white,
+                    fontFamily: 'Rubik_400Regular',
+                    letterSpacing: 3,
+                    fontSize: 20
+                },
+                headerTitle: 'MESSAGES',
+                headerLeft: () => null
+            }}/>
+            <Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>
           </Tab.Navigator>
         </NavigationContainer>
       );
