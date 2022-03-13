@@ -248,7 +248,7 @@ const myCommunities = [
   },
   {
     id: 3,
-    name: 'Dealing with loss',
+    name: 'Loss',
     description: 'A community for those who have experienced a loss',
     color: '#7300e6',
     numberOfMembers: 48,

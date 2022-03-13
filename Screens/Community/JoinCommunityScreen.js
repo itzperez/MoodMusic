@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native'
 import Friends from '../../assets/Images/friends.svg';
 import { useNavigation } from '@react-navigation/native';
 import Song from '../../Song.js';
+import Colors from '../../Themes/colors';
 
 
 export default function JoinCommunityScreen({route}) {
@@ -73,6 +74,7 @@ export default function JoinCommunityScreen({route}) {
                     data={route.params.community.songs}
                     renderItem={renderSong}
                     keyExtractor={(item) => item.rank}
+                    scrollEnabled={false}
                   />
 
           </View>
