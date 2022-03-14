@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "lecture-5b-demo",
-    "slug": "lecture-5b-demo",
+    "name": "mood-music-app",
+    "slug": "mood-music-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "splash": {
